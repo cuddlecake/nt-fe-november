@@ -1,0 +1,17 @@
+{
+  "name": "scss-playground",
+  "version": "1.0.0",
+  "description": "A Playground for SCSS",
+  "source": "index.html",
+  "author": "Alexander Sawtschuk",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel --port 3000 --open",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.0",
+    "parcel": "^2.0.0",
+    "prettier": "^2.5.0"
+  }
+}

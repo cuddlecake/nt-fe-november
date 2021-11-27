@@ -1,13 +1,144 @@
 @import "reset";
 
+$border-color: hotpink;
+$bubblepink: #f2c7e3;
+$headerHeight: 3rem;
+$footerHeight: 5rem;
+
+@mixin line-clamp($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 body {
-  font-family: system-ui,
-  -apple-system, /* Firefox supports this but not yet `system-ui` */
-  'Segoe UI',
-  Roboto,
-  Helvetica,
-  Arial,
-  sans-serif,
-  'Apple Color Emoji',
-  'Segoe UI Emoji';
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.main-container {
+  height: 100vh;
+  max-height: 100vh;
+  display: grid;
+  grid-template-rows: $headerHeight 1fr $footerHeight;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 5rem 1fr 12rem;
+  background: #f2c7e3;
+}
+
+.card-container {
+  --min-width: 240px;
+  --column-gap: 0.5rem;
+
+  transition: column-gap 75ms ease-in-out;
+  display: grid;
+  padding: 1rem;
+  column-gap: var(--column-gap);
+  row-gap: 1rem;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(var(--min-width) - 2rem, 100%), 1fr)
+  );
+  grid-auto-rows: max-content;
+}
+
+@media screen and (min-width: 1024px) {
+  .card-container {
+    --min-width: 260px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .card-container {
+    --min-width: 288px;
+    --column-gap: 1rem;
+  }
+}
+
+.card {
+  padding: 0.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 4px 4px 8px hsl(0 0% 0% / 0.1),
+    4px 6px 10px hsl(320 71% 46% / 0.25);
+  border: 1px solid $border-color;
+
+  &-title {
+    width: max-content;
+    &::after {
+      display: block;
+      content: " ";
+      height: 0.25rem;
+      width: 100%;
+      border-radius: 25% 50% 50% 600%;
+      background: linear-gradient(to right, hotpink, pink 50%, white 90%);
+      margin-top: 0.125rem;
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  &-body {
+    @include line-clamp(4);
+  }
+}
+
+.sidebar {
+  background: pink;
+  padding: 0.5rem;
+  display: block;
+
+  &-left {
+    > img {
+      filter: drop-shadow(1.5px 1.5px rgba(0, 0, 0, 0.3));
+    }
+    > img + img {
+      margin-block-start: 0.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none;
+  }
+}
+
+header {
+  height: $headerHeight;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+footer {
+  height: $footerHeight;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+header,
+footer {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  background: hotpink;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  &-track {
+    background: $bubblepink;
+  }
+  &-thumb {
+    background: hotpink;
+  }
 }
